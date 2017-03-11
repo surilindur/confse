@@ -1,0 +1,8 @@
+[submodule "dependencies/xOBSE"]
+	path = dependencies/xOBSE
+	url = https://github.com/llde/xOBSE
+    shallow = true
+[submodule "dependencies/json"]
+	path = dependencies/json
+	url = https://github.com/nlohmann/json
+    shallow = true

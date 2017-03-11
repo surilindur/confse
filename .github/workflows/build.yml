@@ -1,0 +1,26 @@
+name: Build on Windows
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-on-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repositories
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          lfs: false
+          submodules: true
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x86
+          vs-prerelease: true
+      - name: Build projects
+        shell: pwsh
+        run: |
+          msbuild objson.sln
