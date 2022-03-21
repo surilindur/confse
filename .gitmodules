@@ -1,8 +1,0 @@
-[submodule "obse"]
-	path = obse
-	url = https://github.com/llde/xOBSE
-    shallow = true
-[submodule "json"]
-	path = json
-	url = https://github.com/nlohmann/json
-    shallow = true
