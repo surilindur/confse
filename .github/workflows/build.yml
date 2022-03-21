@@ -21,6 +21,12 @@ jobs:
         with:
           msbuild-architecture: x86
           vs-prerelease: true
+      - name: Directory Check
+        shell: pwsh
+        run: |
+          dir
+          cd ..
+          dir
       - name: Build project
         shell: pwsh
         run: |
