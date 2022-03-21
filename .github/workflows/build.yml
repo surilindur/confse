@@ -38,4 +38,4 @@ jobs:
       - name: Build project
         shell: pwsh
         run: |
-          msbuild objson/objson.vcxproj
+          msbuild /property:Configuration=Release;Platform=x86 objson/objson.vcxproj
