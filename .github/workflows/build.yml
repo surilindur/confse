@@ -1,4 +1,4 @@
-name: Build on Windows
+name: Project Build Check
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-on-windows:
+    name: Build on Windows
     runs-on: windows-latest
     steps:
       - name: Checkout repositories
@@ -15,12 +16,12 @@ jobs:
           fetch-depth: 1
           lfs: false
           submodules: true
-      - name: Add msbuild to PATH
+      - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.1
         with:
           msbuild-architecture: x86
           vs-prerelease: true
-      - name: Build projects
+      - name: Build project
         shell: pwsh
         run: |
           msbuild objson/objson.vcxproj
