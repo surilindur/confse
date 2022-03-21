@@ -8,7 +8,8 @@ on:
 jobs:
   build-on-windows:
     name: Build on Windows
-    runs-on: windows-latest
+    # windows-latest runs on 2022 which does not have ATL libraries preinstalled?
+    runs-on: windows-2019
     steps:
       - name: Checkout repositories
         uses: actions/checkout@v3

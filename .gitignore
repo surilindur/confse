@@ -1,10 +1,7 @@
 # temporary files from visual studio
 /.vs/
+/build/
 *.user
-
-# dependencies as git submodules
-#/obse/
-#/json/
 
 # other files that should be ignored
 *.json
