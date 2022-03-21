@@ -1,8 +1,8 @@
 #pragma once
 
-#include "obse\ModTable.h"
-#include "obse\ScriptUtils.h"
-#include "obse\GameData.h"
+#include "ModTable.h"
+#include "ScriptUtils.h"
+#include "GameData.h"
 
 #include "Logging.hpp"
 

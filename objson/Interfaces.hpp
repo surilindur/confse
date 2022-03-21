@@ -1,6 +1,6 @@
 #pragma once
 
-#include "obse\PluginAPI.h"
+#include "PluginAPI.h"
 
 typedef OBSEArrayVarInterface::Array OBSEArray;
 typedef OBSEArrayVarInterface::Element OBSEElement;

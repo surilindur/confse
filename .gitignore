@@ -1,10 +1,2 @@
 # temporary files from visual studio
 /.vs/
-/build/
-*.user
-
-# other files that should be ignored
-*.json
-*.obj
-*.exe
-*.json

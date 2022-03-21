@@ -1,6 +1,6 @@
 #pragma once
 
-#include "json\single_include\nlohmann\json.hpp"
+#include "json.hpp"
 
 // memory cache size in number of files to cache (file size not inspected)
 #define MEMCACHE_MAX_FILECOUNT 10
