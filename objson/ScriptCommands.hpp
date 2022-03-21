@@ -1,6 +1,6 @@
-#include "GameForms.h"
-#include "PluginAPI.h"
-#include "GameAPI.h"
+#include "obse/GameForms.h"
+#include "obse/PluginAPI.h"
+#include "obse/GameAPI.h"
 
 #include "Logging.hpp"
 #include "Interfaces.hpp"

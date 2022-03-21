@@ -1,6 +1,6 @@
-#include "PluginAPI.h"
-#include "ParamInfos.h"
-#include "GameAPI.h"
+#include "obse/PluginAPI.h"
+#include "obse/ParamInfos.h"
+#include "obse/GameAPI.h"
 
 #include "Logging.hpp"
 #include "Interfaces.hpp"

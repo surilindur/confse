@@ -1,4 +1,4 @@
-#pragma once
-
-#include "IDebugLog.h"
+#include "obse/IDebugLog.h"
 #define Log_Print(...) _MESSAGE(__VA_ARGS__)
+
+IDebugLog gLog("objson.log");
