@@ -1,9 +1,9 @@
 #pragma once
 
 // obse includes
-#include "dependencies/xOBSE/obse/obse/GameForms.h"
-#include "dependencies/xOBSE/obse/obse/PluginAPI.h"
-#include "dependencies/xOBSE/obse/obse/GameAPI.h"
+#include "obse/GameForms.h"
+#include "obse/PluginAPI.h"
+#include "obse/GameAPI.h"
 
 // project includes
 #include "Logging.hpp"

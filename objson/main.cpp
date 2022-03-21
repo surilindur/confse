@@ -1,7 +1,7 @@
 // obse includes
-#include "dependencies/xOBSE/obse/obse/PluginAPI.h"
-#include "dependencies/xOBSE/obse/obse/ParamInfos.h"
-#include "dependencies/xOBSE/obse/obse/GameAPI.h"
+#include "obse/PluginAPI.h"
+#include "obse/ParamInfos.h"
+#include "obse/GameAPI.h"
 
 // project includes
 #include "Logging.hpp"

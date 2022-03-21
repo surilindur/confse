@@ -3,8 +3,8 @@
 *.user
 
 # dependencies as git submodules
-/dependencies/xOBSE/
-/dependencies/json/
+/obse/
+/json/
 
 # other files that should be ignored
 *.json

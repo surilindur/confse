@@ -13,6 +13,12 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D4DDA734-7E93-4581-8F82-32BB738F69FE}</ProjectGuid>
     <RootNamespace>objson</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -29,6 +35,18 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>16.0.29511.113</_ProjectFileVersion>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
@@ -50,7 +68,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <ForcedIncludeFiles>dependencies\xOBSE\obse\obse_common\obse_prefix.h;dependencies\xOBSE\obse\StdAfx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>obse_common/obse_prefix.h;StdAfx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -60,6 +78,10 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PostBuildEvent>
+      <Message>Installing DLL...</Message>
+      <Command>copy "$(TargetPath)" "$(OblivionPath)\data\obse\plugins\$(TargetFileName)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -69,7 +91,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ForcedIncludeFiles>dependencies\xOBSE\obse\obse_common\obse_prefix.h;dependencies\xOBSE\obse\StdAfx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>obse_common/obse_prefix.h;StdAfx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -81,53 +103,64 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PostBuildEvent>
+      <Message>Installing DLL...</Message>
+      <Command>copy "$(TargetPath)" "$(OblivionPath)\data\obse\plugins\$(TargetFileName)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="dependencies\xOBSE\common\common.vcxproj">
+    <ProjectReference Include="..\common\common.vcxproj">
       <Project>{20c6411c-596f-4b85-be4e-8bc91f59d8a6}</Project>
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameActorValues.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameAPI.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameBSExtraData.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameData.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameExtraData.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameForms.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameObjects.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameTasks.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\GameTypes.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\NiAPI.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\NiNodes.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\NiRTTI.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\Script.cpp" />
-    <ClCompile Include="dependencies\xOBSE\obse\obse\Utilities.cpp" />
-    <ClCompile Include="dllmain.c" />
+    <ClCompile Include="..\obse\obse\GameActorValues.cpp" />
+    <ClCompile Include="..\obse\obse\GameAPI.cpp" />
+    <ClCompile Include="..\obse\obse\GameBSExtraData.cpp" />
+    <ClCompile Include="..\obse\obse\GameData.cpp" />
+    <ClCompile Include="..\obse\obse\GameExtraData.cpp" />
+    <ClCompile Include="..\obse\obse\GameForms.cpp" />
+    <ClCompile Include="..\obse\obse\GameObjects.cpp" />
+    <ClCompile Include="..\obse\obse\GameTasks.cpp" />
+    <ClCompile Include="..\obse\obse\GameTypes.cpp" />
+    <ClCompile Include="..\obse\obse\NiAPI.cpp" />
+    <ClCompile Include="..\obse\obse\NiNodes.cpp" />
+    <ClCompile Include="..\obse\obse\NiRTTI.cpp" />
+    <ClCompile Include="..\obse\obse\Script.cpp" />
+    <ClCompile Include="..\obse\obse\Utilities.cpp" />
+    <ClCompile Include="dllmain.c">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ForcedIncludeFiles>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameActorValues.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameAPI.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameBSExtraData.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameData.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameExtraData.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameForms.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameObjects.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameTasks.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\GameTypes.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\NiAPI.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\NiNodes.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\NiRTTI.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\ParamInfos.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\PluginAPI.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\Script.h" />
-    <ClInclude Include="dependencies\xOBSE\obse\obse\Utilities.h" />
+    <ClInclude Include="..\obse\obse\GameActorValues.h" />
+    <ClInclude Include="..\obse\obse\GameAPI.h" />
+    <ClInclude Include="..\obse\obse\GameBSExtraData.h" />
+    <ClInclude Include="..\obse\obse\GameData.h" />
+    <ClInclude Include="..\obse\obse\GameExtraData.h" />
+    <ClInclude Include="..\obse\obse\GameForms.h" />
+    <ClInclude Include="..\obse\obse\GameObjects.h" />
+    <ClInclude Include="..\obse\obse\GameTasks.h" />
+    <ClInclude Include="..\obse\obse\GameTypes.h" />
+    <ClInclude Include="..\obse\obse\NiAPI.h" />
+    <ClInclude Include="..\obse\obse\NiNodes.h" />
+    <ClInclude Include="..\obse\obse\NiRTTI.h" />
+    <ClInclude Include="..\obse\obse\ParamInfos.h" />
+    <ClInclude Include="..\obse\obse\PluginAPI.h" />
+    <ClInclude Include="..\obse\obse\Script.h" />
+    <ClInclude Include="..\obse\obse\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="dependencies\xOBSE\obse\obse\GameRTTI_1_2_416.inl" />
+    <None Include="..\obse\obse\GameRTTI_1_2_416.inl" />
     <None Include="exports.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

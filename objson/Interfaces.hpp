@@ -1,7 +1,7 @@
 #pragma once
 
 // obse includes
-#include "dependencies/xOBSE/obse/obse/PluginAPI.h"
+#include "obse/PluginAPI.h"
 
 // definitions
 typedef OBSEArrayVarInterface::Array OBSEArray;
