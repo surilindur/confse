@@ -29,6 +29,12 @@ jobs:
         shell: pwsh
         run: |
           dir
+          cd objson
+          dir
+          cd ../obse
+          dir
+          cd ../json
+          dir
       - name: Build project
         shell: pwsh
         run: |
