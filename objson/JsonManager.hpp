@@ -1,10 +1,8 @@
 #pragma once
 
-// file and exception includes
 #include <fstream>
 #include <exception>
 
-// project includes
 #include "Logging.hpp"
 #include "MemoryCache.hpp"
 

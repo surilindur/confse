@@ -1,9 +1,7 @@
 #include "ScriptCommands.hpp"
 
-// some definitions
 #define ARG_MAX_CHARS 512
 
-// convenience definitions for ExtractArgsEx
 #define ExtractArgsEx(...) objson::Interfaces::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
 #define PASS_EXTRACT_ARGS_EX paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList
 

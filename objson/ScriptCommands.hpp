@@ -1,11 +1,9 @@
 #pragma once
 
-// obse includes
-#include "obse/GameForms.h"
-#include "obse/PluginAPI.h"
-#include "obse/GameAPI.h"
+#include "obse\GameForms.h"
+#include "obse\PluginAPI.h"
+#include "obse\GameAPI.h"
 
-// project includes
 #include "Logging.hpp"
 #include "Interfaces.hpp"
 #include "JsonManager.hpp"
