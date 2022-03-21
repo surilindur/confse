@@ -8,7 +8,10 @@ on:
 jobs:
   build-on-windows:
     name: Build on Windows
-    # windows-latest runs on 2022 which does not have ATL libraries preinstalled?
+    # The windows-latest agent runs on 2022,
+    # which does not have ATL libraries preinstalled yet?
+    # There was a bug report for 2019 that got it fixed on GitHub,
+    # but it seems the fix was not carried on to 2022
     runs-on: windows-2019
     steps:
       - name: Checkout repositories
@@ -25,8 +28,6 @@ jobs:
       - name: Directory Check
         shell: pwsh
         run: |
-          dir
-          cd ..
           dir
       - name: Build project
         shell: pwsh
