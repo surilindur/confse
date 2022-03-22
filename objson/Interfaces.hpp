@@ -1,17 +1,16 @@
-#include "obse/PluginAPI.h"
-
 typedef OBSEArrayVarInterface::Array OBSEArray;
 typedef OBSEArrayVarInterface::Element OBSEElement;
 
-namespace objson::Interfaces {
-
+namespace ObJson::Interfaces
+{
 	PluginHandle kPluginHandle = kPluginHandle_Invalid;
 	OBSEStringVarInterface *kOBSEStringVar = NULL;
 	OBSEArrayVarInterface *kOBSEArrayVar = NULL;
 	OBSEScriptInterface *kOBSEScript = NULL;
 	std::string kOblivionDirectory;
 
-	OBSEArray *ArrayFromStdVector(const std::vector<std::string> &StdVector, Script *callingScript) {
+	OBSEArray *ArrayFromStdVector(const std::vector<std::string> &StdVector, Script *callingScript)
+    {
 		std::vector<OBSEElement> OBSEVector;
 		for (auto &Element : StdVector) {
 			OBSEVector.push_back(Element.c_str());

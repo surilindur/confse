@@ -11,5 +11,5 @@ indent_style = space
 [*.{yml,json,vcxproj}]
 indent_size = 2
 
-[makefile]
-indent_size = 2
+[Makefile]
+indent_style = tab

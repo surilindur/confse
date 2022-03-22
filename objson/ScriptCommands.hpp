@@ -2,54 +2,53 @@
 #include "obse/PluginAPI.h"
 #include "obse/GameAPI.h"
 
-#include "Logging.hpp"
 #include "Interfaces.hpp"
 #include "JsonManager.hpp"
-#include "FormManager.hpp"
+#include "TESForms.hpp"
 
 #define ARG_MAX_CHARS 512
-#define ExtractArgsEx(...) objson::Interfaces::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
+#define ExtractArgsEx(...) ObJson::Interfaces::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
 #define PASS_EXTRACT_ARGS_EX paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList
 
-namespace objson::ScriptCommands {
-
-	static bool Cmd_objson_JsonGetString_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS], DefaultReturn[ARG_MAX_CHARS];
+namespace ObJson::ScriptCommands
+{
+	static bool Cmd_ObJson_JsonGetString_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS], default_return[ARG_MAX_CHARS];
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
-			std::string TempStr(DefaultReturn);
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Get(Key, TempStr);
-			objson::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, TempStr.c_str());
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &default_return)) {
+			std::string temp_str(default_return);
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Get(key, temp_str);
+			ObJson::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, temp_str.c_str());
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonSetString_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS], Value[ARG_MAX_CHARS];
+	static bool Cmd_ObJson_JsonSetString_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS], value[ARG_MAX_CHARS];
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &Value)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Set(Key, std::string(Value));
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &value)) {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Set(key, std::string(value));
 			JObject.WriteToDisk();
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonGetInt_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
+	static bool Cmd_ObJson_JsonGetInt_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
 		UInt32 DefaultReturn;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Get(Key, DefaultReturn);
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &DefaultReturn)) {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Get(key, DefaultReturn);
 			*result = DefaultReturn;
 		} else {
 			*result = 0;
@@ -58,112 +57,118 @@ namespace objson::ScriptCommands {
 		return true;
 	}
 
-	static bool Cmd_objson_JsonSetInt_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		UInt32 Value;
+	static bool Cmd_ObJson_JsonSetInt_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
+		UInt32 value;
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &Value)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Set(Key, Value);
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &value)) {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Set(key, value);
 			JObject.WriteToDisk();
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonGetFloat_Execute(COMMAND_ARGS) {
+	static bool Cmd_ObJson_JsonGetFloat_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
+		float default_return;
 
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		float DefaultReturn;
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &default_return))
+        {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Get(key, default_return);
+        }
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Get(Key, DefaultReturn);
-			*result = DefaultReturn;
-		} else {
-			*result = 0;
-		}
+        *result = default_return;
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonSetFloat_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		float Value;
+	static bool Cmd_ObJson_JsonSetFloat_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
+		float value;
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &Value)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Set(Key, Value);
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &value))
+        {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Set(key, value);
 			JObject.WriteToDisk();
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonGetForm_Execute(COMMAND_ARGS) {
+	static bool Cmd_ObJson_JsonGetForm_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
+		TESForm *default_return;
+		UInt32 *ref_result = (UInt32 *)result;
+		std::string temp_str("");
 
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		TESForm *DefaultReturn;
-		UInt32 *RefResult = (UInt32 *)result;
-		std::string TempStr("");
-
-		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &Filename, &Key, &DefaultReturn)) {
-			*RefResult = DefaultReturn->refID;
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Get(Key, TempStr);
-			objson::FormManager::StringToRefID(TempStr, RefResult);
-		} else {
-			*RefResult = 0;
+		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &filename, &key, &default_return))
+        {
+			*ref_result = default_return->refID;
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Get(key, temp_str);
+			ObJson::TESForms::StringToRefID(temp_str, ref_result);
+		}
+        else
+        {
+			*ref_result = 0;
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonSetForm_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		std::string StringValue;
-		TESForm *Value;
+	static bool Cmd_ObJson_JsonSetForm_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
+		TESForm *value;
 		*result = 0;
 
-		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &Filename, &Key, &Value)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Set(Key, objson::FormManager::FormToString(Value));
+		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &filename, &key, &value))
+        {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Set(key, ObJson::TESForms::FormToString(value));
 			JObject.WriteToDisk();
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonEraseKey_Execute(COMMAND_ARGS) {
-
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
+	static bool Cmd_ObJson_JsonEraseKey_Execute(COMMAND_ARGS)
+    {
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			JObject.Erase(Key);
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key))
+        {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			JObject.Erase(key);
 			JObject.WriteToDisk();
 		}
 
 		return true;
 	}
 
-	static bool Cmd_objson_JsonListKeys_Execute(COMMAND_ARGS) {
+	static bool Cmd_ObJson_JsonListKeys_Execute(COMMAND_ARGS) {
 
-		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
+		char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS];
 		*result = 0;
 
-		if (ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key)) {
-			objson::JsonManager::JsonObject JObject(Filename);
-			std::vector<std::string> KeyList;
-			JObject.ListKeys(Key, KeyList);
-			OBSEArray* OBSEArr = objson::Interfaces::ArrayFromStdVector(KeyList, scriptObj);
-			objson::Interfaces::kOBSEArrayVar->AssignCommandResult(OBSEArr, result);
+		if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key))
+        {
+			ObJson::JsonManager::JsonObject JObject(filename);
+			std::vector<std::string> key_list;
+			JObject.ListKeys(key, key_list);
+			OBSEArray* obse_array = ObJson::Interfaces::ArrayFromStdVector(key_list, scriptObj);
+			ObJson::Interfaces::kOBSEArrayVar->AssignCommandResult(obse_array, result);
 		}
 
 		return true;
@@ -172,7 +177,7 @@ namespace objson::ScriptCommands {
 	ParamInfo kParams_JsonGetString[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "Defaultreturn", kParamType_String, 0 }
+		{ "Default", kParamType_String, 0 }
 	};
 
 	ParamInfo kParams_JsonSetString[3] = {
@@ -184,7 +189,7 @@ namespace objson::ScriptCommands {
 	ParamInfo kParams_JsonGetInt[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "Defaultreturn", kParamType_Integer, 0 }
+		{ "Default", kParamType_Integer, 0 }
 	};
 
 	ParamInfo kParams_JsonSetInt[3] = {
@@ -196,7 +201,7 @@ namespace objson::ScriptCommands {
 	ParamInfo kParams_JsonGetFloat[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "Defaultreturn", kParamType_Float, 0 }
+		{ "Default", kParamType_Float, 0 }
 	};
 
 	ParamInfo kParams_JsonSetFloat[3] = {
@@ -208,7 +213,7 @@ namespace objson::ScriptCommands {
 	ParamInfo kParams_JsonGetForm[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "Defaultreturn", kOBSEParamType_Form, 0 }
+		{ "Default", kOBSEParamType_Form, 0 }
 	};
 
 	ParamInfo kParams_JsonSetForm[3] = {

@@ -1,2 +1,3 @@
-# temporary files from visual studio
 /.vs/
+/testing/data/
+/testing/test
