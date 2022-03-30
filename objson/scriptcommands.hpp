@@ -2,12 +2,12 @@
 #include "obse/PluginAPI.h"
 #include "obse/GameAPI.h"
 
-#include "Interfaces.hpp"
+#include "obseplugin.hpp"
 #include "jsonfile.hpp"
 #include "tesforms.hpp"
 
 #define ARG_MAX_CHARS 512
-#define ExtractArgsEx(...) ObJson::Interfaces::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
+#define ExtractArgsEx(...) objson::obseplugin::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
 #define PASS_EXTRACT_ARGS_EX paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList
 
 namespace objson::scriptcommands
@@ -21,7 +21,7 @@ namespace objson::scriptcommands
             std::string temp_str(default_return);
             objson::jsonfile json_file(filename);
             json_file.get_entry(key, temp_str);
-            ObJson::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, temp_str.c_str());
+            objson::obseplugin::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, temp_str.c_str());
             *result = 0;
             return true;
         }
@@ -172,8 +172,8 @@ namespace objson::scriptcommands
             objson::jsonfile json_file(filename);
             std::vector<std::string> key_list;
             json_file.list_keys(key, key_list);
-            OBSEArray* obse_array = ObJson::Interfaces::ArrayFromStdVector(key_list, scriptObj);
-            ObJson::Interfaces::kOBSEArrayVar->AssignCommandResult(obse_array, result);
+            OBSEArray* obse_array = objson::obseplugin::ArrayFromStdVector(key_list, scriptObj);
+            objson::obseplugin::kOBSEArrayVar->AssignCommandResult(obse_array, result);
             *result = 0;
             return true;
         }

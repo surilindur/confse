@@ -1,7 +1,9 @@
+#pragma once
+
 typedef OBSEArrayVarInterface::Array OBSEArray;
 typedef OBSEArrayVarInterface::Element OBSEElement;
 
-namespace ObJson::Interfaces
+namespace objson::obseplugin
 {
 	PluginHandle kPluginHandle = kPluginHandle_Invalid;
 	OBSEStringVarInterface *kOBSEStringVar = NULL;

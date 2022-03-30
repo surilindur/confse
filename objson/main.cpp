@@ -4,7 +4,7 @@
 #include "obse/ParamInfos.h"
 #include "obse/GameAPI.h"
 
-#include "Interfaces.hpp"
+#include "obseplugin.hpp"
 #include "scriptcommands.hpp"
 
 #define Log_Print(...) _MESSAGE(__VA_ARGS__)
@@ -43,17 +43,17 @@ extern "C"
 				Log_Print("incorrect Oblivion version, got %08X, need %08X", obse->oblivionVersion, OBLIVION_VERSION);
 				return false;
 			}
-			else if ((objson::Interfaces::kOBSEScript = (OBSEScriptInterface*)obse->QueryInterface(kInterface_Script)) == NULL)
+			else if ((objson::obseplugin::kOBSEScript = (OBSEScriptInterface*)obse->QueryInterface(kInterface_Script)) == NULL)
 			{
 				Log_Print("Failed to acquire ScriptInterface");
 				return false;
 			}
-			else if ((objson::Interfaces::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar)) == NULL)
+			else if ((objson::obseplugin::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar)) == NULL)
 			{
 				Log_Print("Failed to acquire StringVarInterface");
 				return false;
 			}
-			else if ((objson::Interfaces::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar)) == NULL)
+			else if ((objson::obseplugin::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar)) == NULL)
 			{
 				Log_Print("Failed to acquire ArrayVarInterface");
 				return false;
@@ -68,12 +68,12 @@ extern "C"
 	{
 		Log_Print("OBSEPlugin_Load running");
 
-		objson::Interfaces::kPluginHandle = obse->GetPluginHandle();
+		objson::obseplugin::kPluginHandle = obse->GetPluginHandle();
 
 		if (!obse->isEditor)
 		{
-			objson::Interfaces::kOblivionDirectory = std::string(obse->GetOblivionDirectory());
-			Log_Print("game directory: %s", objson::Interfaces::kOblivionDirectory.c_str());
+			objson::obseplugin::kOblivionDirectory = std::string(obse->GetOblivionDirectory());
+			Log_Print("game directory: %s", objson::obseplugin::kOblivionDirectory.c_str());
 		}
 
 		obse->SetOpcodeBase(OBJSON_OPCODE_BASE);
