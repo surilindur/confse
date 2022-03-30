@@ -38,4 +38,4 @@ jobs:
       - name: Build project
         shell: pwsh
         run: |
-          msbuild objson/objson.vcxproj
+          msbuild objson/objson.vcxproj -p:BuildInParallel=true
