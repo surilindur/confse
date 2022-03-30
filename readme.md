@@ -14,9 +14,8 @@ Experimental Oblivion Script Extender plugin to provide JSON file interface for 
 
 The project has the following dependencies:
 
-* [nlohmann/json](https://github.com/nlohmann/json) for actual JSON interaction
 * [llde/xOBSE](https://github.com/llde/xOBSE) for OBSE source code
-* The MSVC compiler for building and linking
+* [nlohmann/json](https://github.com/nlohmann/json) for actual JSON interaction
 
 
 ## Added Commands
