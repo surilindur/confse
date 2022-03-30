@@ -5,7 +5,7 @@
 
 #include "json/single_include/nlohmann/json.hpp"
 
-namespace ObJson::JsonFile
+namespace objson
 {
     // recently accessed files will have their contents cached to avoid disk reads
     static const std::map<std::filesystem::path, nlohmann::json> file_cache;
@@ -13,7 +13,7 @@ namespace ObJson::JsonFile
     // the game directory should be the one below which all accessed files reside
     static const std::filesystem::path game_directory;
 
-    class JsonFile
+    class jsonfile
     {
         private:
 
@@ -70,7 +70,7 @@ namespace ObJson::JsonFile
 
         public:
 
-        JsonFile(std::string& filename)
+        jsonfile(std::string& filename)
         {
             // normalisation and checking code borrowed from StackOverflow:
             // https://stackoverflow.com/questions/61123627/check-if-an-stdfilesystempath-is-inside-a-directory
@@ -79,13 +79,23 @@ namespace ObJson::JsonFile
             auto[game_directory_end, nothing] = std::mismatch(game_directory.begin(), game_directory.end(), filepath.begin());
             allow_disk_access = game_directory_end == game_directory.end();  // failing this check could be logged somehow
 
-            if (allow_disk_access && std::filesystem::exists(filepath))
+            //std::cout << "Filepath is " << filepath << std::endl;
+
+            if ((auto it = file_cache.find(filepath)) != file_cache.end())
             {
+                //std::cout << "Found in cache, reusing json" << std::endl;
+                filedata = file_cache.at(it);
+            }
+            else if (allow_disk_access && std::filesystem::exists(filepath))
+            {
+                //std::cout << "Not in cache, loading from disk" << std::endl;
+                // this should automatically close at the end of the scope? really?
                 std::ifstream infile(filepath);
-                infile >> filedata;  // this should automatically close at the end of the scope? really?
+                infile >> filedata;
+                file_cache.emplace(filepath, filedata);
+                filedata = file_cache.at(file_cache.find(filepath));
             }
 
-            //std::cout << "Filepath is " << filepath << std::endl;
             //std::cout << "Data is " << filedata << std::endl;
         }
 
@@ -131,12 +141,17 @@ namespace ObJson::JsonFile
             }
         }
 
-        void flush_to_disk()
+        void flush_to_disk(bool evict_from_cache = false)
         {
             if (allow_disk_access)
             {
                 std::ofstream file(filepath);
                 file << std::setw(2) << filedata << std::endl;
+
+                if (evict_from_cache && (auto it = file_cache.find(filepath)) != file_cache.end())
+                {
+                    file_cache[it] = filedata;
+                }
             }
         }
     };

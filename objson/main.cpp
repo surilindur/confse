@@ -5,7 +5,7 @@
 #include "obse/GameAPI.h"
 
 #include "Interfaces.hpp"
-#include "ScriptCommands.hpp"
+#include "scriptcommands.hpp"
 
 #define Log_Print(...) _MESSAGE(__VA_ARGS__)
 
@@ -29,7 +29,7 @@ extern "C"
 
 		if (obse->isEditor)
 		{
-			Log_Print("Editor mode, skip other checks)");
+			Log_Print("editor mode, skip other checks)");
 		}
 		else
 		{
@@ -40,7 +40,7 @@ extern "C"
 			}
 			else if (obse->oblivionVersion != OBLIVION_VERSION)
 			{
-				Log_Print("Incorrect Oblivion version, got %08X, need %08X", obse->oblivionVersion, OBLIVION_VERSION);
+				Log_Print("incorrect Oblivion version, got %08X, need %08X", obse->oblivionVersion, OBLIVION_VERSION);
 				return false;
 			}
 			else if ((objson::Interfaces::kOBSEScript = (OBSEScriptInterface*)obse->QueryInterface(kInterface_Script)) == NULL)
@@ -73,25 +73,26 @@ extern "C"
 		if (!obse->isEditor)
 		{
 			objson::Interfaces::kOblivionDirectory = std::string(obse->GetOblivionDirectory());
-			Log_Print("OblivionDirectory: %s", objson::Interfaces::kOblivionDirectory.c_str());
+			Log_Print("game directory: %s", objson::Interfaces::kOblivionDirectory.c_str());
 		}
 
 		obse->SetOpcodeBase(OBJSON_OPCODE_BASE);
 
-		obse->RegisterTypedCommand(&objson::ScriptCommands::kCommandInfo_JsonGetString, kRetnType_String);
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonSetString);
+		obse->RegisterTypedCommand(&objson::scriptcommands::commandinfo_get_string, kRetnType_String);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_set_string);
 
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonGetFloat);
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonSetFloat);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_get_float);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_set_float);
 
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonGetInt);
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonSetInt);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_get_int);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_set_int);
 
-		obse->RegisterTypedCommand(&objson::ScriptCommands::kCommandInfo_JsonGetForm, kRetnType_Form);
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonSetForm);
+		obse->RegisterTypedCommand(&objson::scriptcommands::commandinfo_get_form, kRetnType_Form);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_set_form);
 
-		obse->RegisterCommand(&objson::ScriptCommands::kCommandInfo_JsonEraseKey);
-		obse->RegisterTypedCommand(&objson::ScriptCommands::kCommandInfo_JsonListKeys, kRetnType_Array);
+		obse->RegisterCommand(&objson::scriptcommands::commandinfo_erase_key);
+
+		obse->RegisterTypedCommand(&objson::scriptcommands::commandinfo_list_keys, kRetnType_Array);
 
 		Log_Print("OBSEPlugin_Load finished");
 		return true;
