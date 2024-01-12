@@ -1,4 +1,4 @@
-name: Project Build Check
+name: CI
 
 on:
   push:
@@ -12,7 +12,8 @@ jobs:
     # which does not have ATL libraries preinstalled yet?
     # There was a bug report for 2019 that got it fixed on GitHub,
     # but it seems the fix was not carried on to 2022
-    runs-on: windows-2019
+    # EDIT: attempting again on -latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repositories
         uses: actions/checkout@v3
@@ -24,18 +25,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
         with:
           msbuild-architecture: x86
-          vs-prerelease: true
-      - name: Directory Check
-        shell: pwsh
-        run: |
-          dir
-          cd objson
-          dir
-          cd ../obse
-          dir
-          cd ../json
-          dir
       - name: Build project
         shell: pwsh
         run: |
-          msbuild objson/objson.vcxproj -p:BuildInParallel=true
+          msbuild confse/confse.vcxproj -p:BuildInParallel=true
