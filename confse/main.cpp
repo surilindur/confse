@@ -9,9 +9,9 @@
 
 #define Log_Print(...) _MESSAGE(__VA_ARGS__)
 
-#define OBJSON_LOGFILE "ObJson.log" // ends up in the game directory
-#define OBJSON_CACHE_MAX_FILES 100  // when this many files in cache, drops all of them
-#define OBJSON_OPCODE_BASE 0x2890   // the plugin was assigned 0x2890 - 289F
+#define OBJSON_LOGFILE "ConfSE.log" // ends up in the game directory
+#define OBJSON_CACHE_MAX_FILES 100	// when this many files in cache, drops all of them
+#define OBJSON_OPCODE_BASE 0x2890	// the plugin was assigned 0x2890 - 289F
 #define OBJSON_MOD_NAME_LENGTH 0x100
 #define OBJSON_REF_ID_LENGTH 0x20
 
@@ -43,7 +43,7 @@ extern "C"
 				Log_Print("incorrect Oblivion version, got %08X, need %08X", obse->oblivionVersion, OBLIVION_VERSION);
 				return false;
 			}
-			else if ((objson::obseplugin::kOBSEScript = (OBSEScriptInterface*)obse->QueryInterface(kInterface_Script)) == NULL)
+			else if ((objson::obseplugin::kOBSEScript = (OBSEScriptInterface *)obse->QueryInterface(kInterface_Script)) == NULL)
 			{
 				Log_Print("Failed to acquire ScriptInterface");
 				return false;

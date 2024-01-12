@@ -1,4 +1,4 @@
-LIBRARY	"objson"
+LIBRARY	"ConfSE"
 EXPORTS
 OBSEPlugin_Query
 OBSEPlugin_Load

@@ -3,10 +3,27 @@
     {
       "name": "Linux",
       "includePath": [
-          "${workspaceFolder}/**"
+        "/usr/include/wine/windows",
+        "/usr/include/wine/msvcrt",
+        "${workspaceFolder}/xobse",
+        "${workspaceFolder}/xobse/obse",
+        "${workspaceFolder}/json/include"
       ],
-      "defines": [],
-      "compilerPath": "/usr/bin/clang",
+      "forcedInclude": [
+        "/usr/include/wine/windows/windows.h",
+        "/usr/include/wine/windows/basetsd.h",
+        "${workspaceFolder}/confse/winefixes.h",
+        "${workspaceFolder}/xobse/obse/obse_common/obse_version.h"
+      ],
+      "defines": [
+        "WIN32",
+        "_DEBUG",
+        "_WINDOWS",
+        "_USRDLL",
+        "OBLIVION_VERSION=0x010201A0",
+        "OBLIVION"
+      ],
+      "compilerPath": "/bin/clang++",
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "linux-clang-x64"

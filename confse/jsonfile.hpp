@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <regex>
 
-#include "json/single_include/nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 namespace objson
 {
@@ -15,15 +15,14 @@ namespace objson
 
     class jsonfile
     {
-        private:
-
+    private:
         bool allow_disk_access;
         nlohmann::json filedata;
         std::filesystem::path filepath;
 
-        std::pair<nlohmann::json*, std::string> find(std::string& key, bool create_on_access = false)
+        std::pair<nlohmann::json *, std::string> find(std::string &key, bool create_on_access = false)
         {
-            auto* temp_data = &filedata;
+            auto *temp_data = &filedata;
             auto key_fragments = split_key(key);
             auto final_fragment = key_fragments.back();
 
@@ -31,7 +30,7 @@ namespace objson
 
             if (!key_fragments.empty())
             {
-                for (const auto& key_fragment : key_fragments)
+                for (const auto &key_fragment : key_fragments)
                 {
                     if (create_on_access && !(*temp_data)[key_fragment].is_object())
                     {
@@ -42,10 +41,10 @@ namespace objson
                 }
             }
 
-            return std::pair<nlohmann::json*, std::string>(temp_data, final_fragment);
+            return std::pair<nlohmann::json *, std::string>(temp_data, final_fragment);
         }
 
-        std::vector<std::string> split_key(std::string& key)
+        std::vector<std::string> split_key(std::string &key)
         {
             // the key being split can be either just strings:              some.key.here
             // or it can contain indexing, in case the value is an array:   some.key[0].here
@@ -68,41 +67,40 @@ namespace objson
             return key_fragments;
         }
 
-        public:
-
-        jsonfile(std::string& filename)
+    public:
+        jsonfile(std::string &filename)
         {
             // normalisation and checking code borrowed from StackOverflow:
             // https://stackoverflow.com/questions/61123627/check-if-an-stdfilesystempath-is-inside-a-directory
             filedata = nlohmann::json::object();
             filepath = (game_directory / "data" / filename).lexically_normal();
-            auto[game_directory_end, nothing] = std::mismatch(game_directory.begin(), game_directory.end(), filepath.begin());
-            allow_disk_access = game_directory_end == game_directory.end();  // failing this check could be logged somehow
+            auto [game_directory_end, nothing] = std::mismatch(game_directory.begin(), game_directory.end(), filepath.begin());
+            allow_disk_access = game_directory_end == game_directory.end(); // failing this check could be logged somehow
 
-            //std::cout << "Filepath is " << filepath << std::endl;
+            // std::cout << "Filepath is " << filepath << std::endl;
 
             if ((auto it = file_cache.find(filepath)) != file_cache.end())
             {
-                //std::cout << "Found in cache, reusing json" << std::endl;
+                // std::cout << "Found in cache, reusing json" << std::endl;
                 filedata = file_cache.at(it);
             }
             else if (allow_disk_access && std::filesystem::exists(filepath))
             {
-                //std::cout << "Not in cache, loading from disk" << std::endl;
-                // this should automatically close at the end of the scope? really?
+                // std::cout << "Not in cache, loading from disk" << std::endl;
+                //  this should automatically close at the end of the scope? really?
                 std::ifstream infile(filepath);
                 infile >> filedata;
                 file_cache.emplace(filepath, filedata);
                 filedata = file_cache.at(file_cache.find(filepath));
             }
 
-            //std::cout << "Data is " << filedata << std::endl;
+            // std::cout << "Data is " << filedata << std::endl;
         }
 
-        template<typename T>
-        void get_entry(std::string& key, T& value)
+        template <typename T>
+        void get_entry(std::string &key, T &value)
         {
-            std::pair<nlohmann::json*, std::string> temp_data = find(key);
+            std::pair<nlohmann::json *, std::string> temp_data = find(key);
 
             if (!temp_data.first->empty())
             {
@@ -110,17 +108,17 @@ namespace objson
             }
         }
 
-        template<typename T>
-        void set_entry(std::string& key, T& value)
+        template <typename T>
+        void set_entry(std::string &key, T &value)
         {
             std::cout << "Set " << key << " to " << value << std::endl;
-            std::pair<nlohmann::json*, std::string> temp_data = find(key, true);
+            std::pair<nlohmann::json *, std::string> temp_data = find(key, true);
             (*temp_data.first)[temp_data.second] = value;
         }
 
-        void remove_entry(std::string& key)
+        void remove_entry(std::string &key)
         {
-            std::pair<nlohmann::json*, std::string> temp_data = find(key);
+            std::pair<nlohmann::json *, std::string> temp_data = find(key);
 
             if (!temp_data.first->empty())
             {
@@ -128,13 +126,13 @@ namespace objson
             }
         }
 
-        void list_keys(std::string& key, std::vector<std::string>& keys)
+        void list_keys(std::string &key, std::vector<std::string> &keys)
         {
-            std::pair<nlohmann::json*, std::string> temp_data = find(key);
+            std::pair<nlohmann::json *, std::string> temp_data = find(key);
 
             if (!temp_data.first->empty() && (*temp_data.first)[temp_data.second].is_object())
             {
-                for (auto& [key, value] : (*temp_data.first)[temp_data.second].items())
+                for (auto &[key, value] : (*temp_data.first)[temp_data.second].items())
                 {
                     keys.push_back(key);
                 }

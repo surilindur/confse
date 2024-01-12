@@ -33,7 +33,6 @@ namespace objson::scriptcommands
     {
         char filename[ARG_MAX_CHARS], key[ARG_MAX_CHARS], value[ARG_MAX_CHARS];
 
-
         if (ExtractArgs(PASS_EXTRACT_ARGS, &filename, &key, &value))
         {
             objson::jsonfile json_file(filename);
@@ -172,7 +171,7 @@ namespace objson::scriptcommands
             objson::jsonfile json_file(filename);
             std::vector<std::string> key_list;
             json_file.list_keys(key, key_list);
-            OBSEArray* obse_array = objson::obseplugin::ArrayFromStdVector(key_list, scriptObj);
+            OBSEArray *obse_array = objson::obseplugin::ArrayFromStdVector(key_list, scriptObj);
             objson::obseplugin::kOBSEArrayVar->AssignCommandResult(obse_array, result);
             *result = 0;
             return true;
@@ -182,62 +181,52 @@ namespace objson::scriptcommands
     }
 
     ParamInfo params_get_string[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Default", kParamType_String, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Default", kParamType_String, 0}};
 
     ParamInfo params_set_string[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Value", kParamType_String, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Value", kParamType_String, 0}};
 
     ParamInfo params_get_int[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Default", kParamType_Integer, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Default", kParamType_Integer, 0}};
 
     ParamInfo params_set_int[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Value", kParamType_Integer, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Value", kParamType_Integer, 0}};
 
     ParamInfo params_get_float[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Default", kParamType_Float, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Default", kParamType_Float, 0}};
 
     ParamInfo params_set_float[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Value", kParamType_Float, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Value", kParamType_Float, 0}};
 
     ParamInfo params_get_form[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Default", kOBSEParamType_Form, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Default", kOBSEParamType_Form, 0}};
 
     ParamInfo params_set_form[3] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 },
-        { "Value", kOBSEParamType_Form, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0},
+        {"Value", kOBSEParamType_Form, 0}};
 
     ParamInfo params_erase_key[2] = {
-        { "Filename", kParamType_String, 0 },
-        { "Key", kParamType_String, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"Key", kParamType_String, 0}};
 
     ParamInfo params_list_keys[2] = {
-        { "Filename", kParamType_String, 0 },
-        { "KeyPath", kParamType_String, 0 }
-    };
+        {"Filename", kParamType_String, 0},
+        {"KeyPath", kParamType_String, 0}};
 
     CommandInfo commandinfo_get_string = {
         "JsonGetString",
@@ -247,8 +236,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_get_string,
-        get_string
-    };
+        get_string};
 
     CommandInfo commandinfo_set_string = {
         "JsonSetString",
@@ -258,8 +246,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_set_string,
-        set_string
-    };
+        set_string};
 
     CommandInfo commandinfo_get_int = {
         "JsonGetInt",
@@ -269,8 +256,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_get_int,
-        get_int
-    };
+        get_int};
 
     CommandInfo commandinfo_set_int = {
         "JsonSetInt",
@@ -280,8 +266,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_set_int,
-        set_int
-    };
+        set_int};
 
     CommandInfo commandinfo_get_float = {
         "JsonGetFloat",
@@ -291,8 +276,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_get_float,
-        get_float
-    };
+        get_float};
 
     CommandInfo commandinfo_set_float = {
         "JsonSetFloat",
@@ -302,8 +286,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_set_float,
-        set_float
-    };
+        set_float};
 
     CommandInfo commandinfo_get_form = {
         "JsonGetForm",
@@ -313,8 +296,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_get_form,
-        get_form
-    };
+        get_form};
 
     CommandInfo commandinfo_set_form = {
         "JsonSetForm",
@@ -324,8 +306,7 @@ namespace objson::scriptcommands
         0,
         3,
         params_set_form,
-        set_form
-    };
+        set_form};
 
     CommandInfo commandinfo_erase_key = {
         "JsonEraseKey",
@@ -335,8 +316,7 @@ namespace objson::scriptcommands
         0,
         2,
         params_erase_key,
-        erase_key
-    };
+        erase_key};
 
     CommandInfo commandinfo_list_keys = {
         "JsonListKeys",
@@ -346,7 +326,6 @@ namespace objson::scriptcommands
         0,
         2,
         params_list_keys,
-        list_keys
-    };
+        list_keys};
 
 }
