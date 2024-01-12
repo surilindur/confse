@@ -1,83 +1,72 @@
-#include "common/IDebugLog.h"
-
 #include "obse/PluginAPI.h"
 #include "obse/ParamInfos.h"
 #include "obse/GameAPI.h"
 
-#include "obseplugin.hpp"
-#include "scriptcommands.hpp"
-
-#define Log_Print(...) _MESSAGE(__VA_ARGS__)
-
-#define OBJSON_LOGFILE "ConfSE.log" // ends up in the game directory
-#define OBJSON_CACHE_MAX_FILES 100	// when this many files in cache, drops all of them
-#define OBJSON_OPCODE_BASE 0x2890	// the plugin was assigned 0x2890 - 289F
-#define OBJSON_MOD_NAME_LENGTH 0x100
-#define OBJSON_REF_ID_LENGTH 0x20
-
-IDebugLog gLog(OBJSON_LOGFILE);
+#include "definitions.hpp"
+#include "commands.hpp"
 
 extern "C"
 {
 	bool OBSEPlugin_Query(const OBSEInterface *obse, PluginInfo *info)
 	{
-		Log_Print("OBSEPlugin_Query running");
+		LOGMESSAGE("OBSEPlugin_Query running");
 
 		info->infoVersion = PluginInfo::kInfoVersion;
-		info->name = "objson";
-		info->version = 2;
+		info->name = OBSEPLUGIN_NAME;
+		info->version = OBSEPLUGIN_VERSION;
 
 		if (obse->isEditor)
 		{
-			Log_Print("editor mode, skip other checks)");
+			LOGMESSAGE("editor mode, skip other checks)");
 		}
 		else
 		{
 			if (obse->obseVersion < OBSE_VERSION_INTEGER)
 			{
-				Log_Print("OBSE version too old, got %08X, expected >= %08X", obse->obseVersion, OBSE_VERSION_INTEGER);
+				LOGMESSAGE("OBSE version is too old, current is %08X, expected >= %08X", obse->obseVersion, OBSE_VERSION_INTEGER);
 				return false;
 			}
 			else if (obse->oblivionVersion != OBLIVION_VERSION)
 			{
-				Log_Print("incorrect Oblivion version, got %08X, need %08X", obse->oblivionVersion, OBLIVION_VERSION);
+				LOGMESSAGE("Invalid Oblivion version, current is %08X, plugin needs %08X", obse->oblivionVersion, OBLIVION_VERSION);
 				return false;
 			}
-			else if ((objson::obseplugin::kOBSEScript = (OBSEScriptInterface *)obse->QueryInterface(kInterface_Script)) == NULL)
+			else if ((kOBSEScript = (OBSEScriptInterface *)obse->QueryInterface(kInterface_Script)) == NULL)
 			{
-				Log_Print("Failed to acquire ScriptInterface");
+				LOGMESSAGE("Failed to acquire ScriptInterface");
 				return false;
 			}
-			else if ((objson::obseplugin::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar)) == NULL)
+			else if ((kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar)) == NULL)
 			{
-				Log_Print("Failed to acquire StringVarInterface");
+				LOGMESSAGE("Failed to acquire StringVarInterface");
 				return false;
 			}
-			else if ((objson::obseplugin::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar)) == NULL)
+			else if ((kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar)) == NULL)
 			{
-				Log_Print("Failed to acquire ArrayVarInterface");
+				LOGMESSAGE("Failed to acquire ArrayVarInterface");
 				return false;
 			}
 		}
 
-		Log_Print("OBSEPlugin_Query passed");
+		LOGMESSAGE("OBSEPlugin_Query passed");
 		return true;
 	}
 
 	bool OBSEPlugin_Load(const OBSEInterface *obse)
 	{
-		Log_Print("OBSEPlugin_Load running");
+		LOGMESSAGE("OBSEPlugin_Load running");
 
-		objson::obseplugin::kPluginHandle = obse->GetPluginHandle();
+		kPluginHandle = obse->GetPluginHandle();
 
 		if (!obse->isEditor)
 		{
-			objson::obseplugin::kOblivionDirectory = std::string(obse->GetOblivionDirectory());
-			Log_Print("game directory: %s", objson::obseplugin::kOblivionDirectory.c_str());
+			oblivion_directory = std::filesystem::canonical(std::filesystem::path(obse->GetOblivionDirectory()));
+			LOGMESSAGE("Game directory: %s", oblivion_directory.c_str());
 		}
 
-		obse->SetOpcodeBase(OBJSON_OPCODE_BASE);
+		obse->SetOpcodeBase(OBSEPLUGIN_OPCODE_BASE);
 
+		/*
 		obse->RegisterTypedCommand(&objson::scriptcommands::commandinfo_get_string, kRetnType_String);
 		obse->RegisterCommand(&objson::scriptcommands::commandinfo_set_string);
 
@@ -93,8 +82,9 @@ extern "C"
 		obse->RegisterCommand(&objson::scriptcommands::commandinfo_erase_key);
 
 		obse->RegisterTypedCommand(&objson::scriptcommands::commandinfo_list_keys, kRetnType_Array);
+		*/
 
-		Log_Print("OBSEPlugin_Load finished");
+		LOGMESSAGE("OBSEPlugin_Load finished");
 		return true;
 	}
 };

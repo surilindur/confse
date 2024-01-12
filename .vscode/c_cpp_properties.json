@@ -12,7 +12,6 @@
       "forcedInclude": [
         "/usr/include/wine/windows/windows.h",
         "/usr/include/wine/windows/basetsd.h",
-        "${workspaceFolder}/confse/winefixes.h",
         "${workspaceFolder}/xobse/obse/obse_common/obse_version.h"
       ],
       "defines": [
@@ -21,7 +20,8 @@
         "_WINDOWS",
         "_USRDLL",
         "OBLIVION_VERSION=0x010201A0",
-        "OBLIVION"
+        "OBLIVION",
+        "WINE_WINTYPES_WORKAROUND"
       ],
       "compilerPath": "/bin/clang++",
       "cStandard": "c17",

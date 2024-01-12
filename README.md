@@ -8,7 +8,7 @@
   <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
-**ConfSE** is an experimental [Oblivion Script Extender](/llde/xOBSE) (OBSE) plugin that aims to enable the loading and saving of JSON files from within Oblivion scripts. This is accomplished through the use of OBSE's `array_var` data type, that be either an array or map. The plugin uses [an existing JSON library for C++](https://github.com/nlohmann/json) together with some simple Oblivion-specific type conversions.
+**ConfSE** is an experimental [Oblivion Script Extender](https://github.com/llde/xOBSE) (OBSE) plugin that aims to enable the loading and saving of JSON files from within Oblivion scripts. This is accomplished through the use of OBSE's `array_var` data type, that be either an array or map. The plugin uses [an existing JSON library for C++](https://github.com/nlohmann/json) together with some simple Oblivion-specific type conversions.
 
 The following type conversions are performed.
 
@@ -26,8 +26,8 @@ The design goal of the plugin is to offer a straightforward mapping from OBSE's 
 
 This project depends on the following external projects and libraries:
 
-* [**Oblivion Script Extender**](/llde/xOBSE) as the targeted OBSE version
-* [**JSON for Modern C++**](/nlohmann/json) as the JSON library used to load and save files
+* [**Oblivion Script Extender**](https://github.com/llde/xOBSE) as the targeted OBSE version
+* [**JSON for Modern C++**](https://github.com/nlohmann/json) as the JSON library used to load and save files
 * **MSBuild** for building the plugin project
 
 The latest compiled DLL at a given time should be available from the GitHub Actions artifacts for the CI workflow.
