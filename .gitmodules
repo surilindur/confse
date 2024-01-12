@@ -1,0 +1,6 @@
+[submodule "xobse"]
+	path = xobse
+	url = https://github.com/llde/xOBSE
+[submodule "json"]
+	path = json
+	url = https://github.com/nlohmann/json
