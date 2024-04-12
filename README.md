@@ -14,8 +14,8 @@ The following type conversions are performed.
 
 | Oblivion                        | JSON                    | Notes                                                |
 |:--------------------------------|:------------------------|:-----------------------------------------------------|
-| `array_var` Array               | `[]`                    | Uninitialized saved as `null`                        |
-| `array_var` Map                 | `{}`                    | Uninitialized saved as `null`                        |
+| `array_var` array               | `[]`                    | Uninitialized saved as `null`                        |
+| `array_var` map                 | `{}`                    | Uninitialized saved as `null`                        |
 | `string_var`                    | String                  | Uninitialized saved as `null`                        |
 | `ref`                           | `"plugin.esp:00000000"` | Unbound is saved as `null`                           |
 | `short`, `int`, `long`, `float` | Number                  | Each value gets loaded as the smallest possible type |

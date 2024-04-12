@@ -1,24 +1,24 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <optional>
 
 #include <nlohmann/json.hpp>
 
 #include "definitions.hpp"
 
-std::optional<std::filesystem::path> resolve_filepath(std::string filepath)
+std::optional<std::filesystem::path> resolveFilepath(std::string filepath)
 {
     auto const path = std::filesystem::canonical(filepath);
-    auto it = std::search(path.begin(), path.end(), oblivion_directory.begin(), oblivion_directory.end());
+    auto it = std::search(path.begin(), path.end(), kOblivionDirectory.begin(), kOblivionDirectory.end());
     if (it == path.begin())
     {
         return path;
     }
 }
 
-std::optional<nlohmann::json> json_load_file(std::string filepath)
+std::optional<nlohmann::json> jsonLoadFile(std::string filepath)
 {
-    auto path = resolve_filepath(filepath);
+    auto path = resolveFilepath(filepath);
     if (path.has_value())
     {
         auto data = nlohmann::json::object();
@@ -39,7 +39,7 @@ std::optional<nlohmann::json> json_load_file(std::string filepath)
     }
 }
 
-std::optional<nlohmann::json> json_load_string(std::string input)
+std::optional<nlohmann::json> jsonLoadString(std::string input)
 {
     try
     {
@@ -55,9 +55,9 @@ std::optional<nlohmann::json> json_load_string(std::string input)
     }
 }
 
-boolean json_save_file(std::string filepath, nlohmann::json data)
+boolean jsonSaveFile(std::string filepath, nlohmann::json data)
 {
-    auto path = resolve_filepath(filepath);
+    auto path = resolveFilepath(filepath);
     if (path.has_value())
     {
         std::ofstream outfile(path.value());
@@ -78,7 +78,7 @@ boolean json_save_file(std::string filepath, nlohmann::json data)
     return false;
 }
 
-std::optional<std::string> json_save_string(nlohmann::json data)
+std::optional<std::string> jsonSaveString(nlohmann::json data)
 {
     try
     {
