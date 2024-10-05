@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="logo" src="https://raw.githubusercontent.com/surilindur/confse/main/images/logo.svg" width="140">
+    <img alt="logo" src="./images/logo.svg" width="140">
 </p>
 
 <p align="center">
