@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="logo" src="./images/logo.svg" width="140">
+    <img alt="logo" src="./.github/assets/logo.svg" width="140">
 </p>
 
 <p align="center">
@@ -8,7 +8,11 @@
   <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
-**ConfSE** is an experimental [Oblivion Script Extender](https://github.com/llde/xOBSE) (OBSE) plugin that aims to enable the loading and saving of JSON files from within Oblivion scripts. This is accomplished through the use of OBSE's `array_var` data type, that be either an array or map. The plugin uses [an existing JSON library for C++](https://github.com/nlohmann/json) together with some simple Oblivion-specific type conversions.
+**ConfSE** is an experimental [Oblivion Script Extender](https://github.com/llde/xOBSE) (OBSE) plugin
+that aims to enable the loading and saving of JSON files from within Oblivion scripts.
+This is accomplished through the use of OBSE's `array_var` data type, that be either an array or map.
+The plugin uses [an existing JSON library for C++](https://github.com/nlohmann/json)
+together with some simple Oblivion-specific type conversions.
 
 The following type conversions are performed.
 
@@ -20,15 +24,17 @@ The following type conversions are performed.
 | `ref`                           | `"plugin.esp:00000000"` | Unbound is saved as `null`                           |
 | `short`, `int`, `long`, `float` | Number                  | Each value gets loaded as the smallest possible type |
 
-The design goal of the plugin is to offer a straightforward mapping from OBSE's `array_var`s, including nested ones, to a corresponding JSON strcture and vice versa.
+The design goal of the plugin is to offer a straightforward mapping from OBSE's `array_var`s,
+including nested ones,
+to a corresponding JSON strcture and vice versa.
 
 **This is a work-in-progress thing and is NOT intended for use. At the moment, it does not even compile.**
 
 This project depends on the following external projects and libraries:
 
-* [**Oblivion Script Extender**](https://github.com/llde/xOBSE) as the targeted OBSE version
-* [**JSON for Modern C++**](https://github.com/nlohmann/json) as the JSON library used to load and save files
-* **MSBuild** for building the plugin project
+* [llde/xOBSE](https://github.com/llde/xOBSE) as the targeted OBSE version
+* [nlohmann/json](https://github.com/nlohmann/json) as the JSON library used to load and save files
+* MSBuild for building the plugin project
 
 The latest compiled DLL at a given time should be available from the GitHub Actions artifacts for the CI workflow.
 
