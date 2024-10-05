@@ -1,17 +1,22 @@
 <svg
-  width="64"
-  height="16"
-  viewBox="0 0 16.933333 4.2333333"
-  version="1.1"
-  xml:space="preserve"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:svg="http://www.w3.org/2000/svg">
+   width="64"
+   height="16"
+   viewBox="0 0 16.933333 4.2333333"
+   version="1.1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
    <style>
       #text1 {
-        fill: currentColor;
+        fill: #000;
       }
       #text2 {
          fill: #3771c8;
+      }
+      @media (prefers-color-scheme: dark) {
+         #text1 {
+            fill: #fff;
+         }
       }
    </style>
    <g transform="matrix(0.98921368,0,0,0.98921368,0.05755346,0.02283084)">
