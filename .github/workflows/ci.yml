@@ -6,25 +6,16 @@ on:
       - main
 
 jobs:
-  build-on-windows:
-    name: Build on Windows
-    # The windows-latest agent runs on 2022,
-    # which does not have ATL libraries preinstalled yet?
-    # There was a bug report for 2019 that got it fixed on GitHub,
-    # but it seems the fix was not carried on to 2022
-    # EDIT: attempting again on -latest
+  build:
+    name: Build
     runs-on: windows-latest
     steps:
       - name: Checkout repositories
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 1
-          lfs: false
           submodules: true
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          msbuild-architecture: x86
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
       - name: Build project
         shell: pwsh
         run: |
