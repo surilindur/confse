@@ -7,6 +7,7 @@
         "/usr/include/wine/msvcrt",
         "${workspaceFolder}/xobse",
         "${workspaceFolder}/xobse/obse",
+        "${workspaceFolder}/xobse/obse/obse",
         "${workspaceFolder}/json/include"
       ],
       "forcedInclude": [
@@ -26,7 +27,10 @@
       "compilerPath": "/bin/clang++",
       "cStandard": "c17",
       "cppStandard": "c++17",
-      "intelliSenseMode": "linux-clang-x64"
+      "intelliSenseMode": "linux-clang-x64",
+      "browse": {
+        "limitSymbolsToIncludedHeaders": true
+      }
     }
   ],
   "version": 4
